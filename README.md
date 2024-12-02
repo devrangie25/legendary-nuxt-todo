@@ -100,3 +100,7 @@ my-nuxt3-project/
 ├── README.md            # Project documentation
 ├── tsconfig.json        # TypeScript configuration (optional)
 └── yarn.lock / package-lock.json  # Dependency lock file
+
+## To install Firebase
+- npm install firebase
+- create a plugin that will connect to our nuxt app to firebase console

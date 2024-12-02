@@ -17,9 +17,18 @@ export default defineNuxtConfig({
 
   ssr: true,
   components: [
+    '~/components',
     {
-      path: '~/components',
-      pathPrefix: false,
+      path: '~/components/atoms', // Auto-import all Atom components
+      prefix: 'a',
+    },
+    {
+      path: '~/components/molecules', // Auto-import all Molecule components
+      prefix: 'm',
+    },
+    {
+      path: '~/components/organisms', // Auto-import all Organism components
+      prefix: 'o',
     },
   ],
   modules: ['@pinia/nuxt'],
