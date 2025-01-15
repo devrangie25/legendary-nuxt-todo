@@ -1,9 +1,14 @@
 <template>
-  <div class="min-h-screen bg-gray-100 flex flex-col items-center">
+  <div class="flex flex-col items-center">
     <!-- Header -->
     <div class="w-full bg-white p-4 shadow-md flex items-center justify-between">
       <div class="text-xl font-semibold">Today’s Task</div>
-      <button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition">+ New Task</button>
+      <button
+        class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition"
+        @click="openModalForNewTodo"
+      >
+        + New Task
+      </button>
     </div>
 
     <!-- Date and Task Filters -->
@@ -17,82 +22,70 @@
       </div>
     </div>
 
-    <!-- Task List -->
-    <o-todo-list :todos="todos" />
+    <o-todo-list :todos="getTodos" @on-update="showModalForUpdateTodo" />
+
+    <m-modal :isOpen="showTodoModal" @close="handleCloseModal" @save-todo="handleSaveTodo">
+      <m-todo-form :loading="isLoading" @form-submit="handleFormSubmit" @form-cancel="handleFormCancel" />
+    </m-modal>
   </div>
 </template>
 
 <script setup lang="ts">
-interface Todo {
-  id?: string
-  title?: string
-  description?: string
-  completed?: boolean
-  dateCreated?: string
-  dateCompleted?: string
+import type { Todo } from '~/types/todo'
+import { useTodoStore } from '~/stores/todos'
+import { useGlobalStore } from '~/stores/global'
+
+definePageMeta({
+  layout: 'default',
+})
+
+const todoStore = useTodoStore()
+const globalStore = useGlobalStore()
+const showTodoModal: boolean = ref(false)
+
+onMounted(() => {
+  todoStore.fetchTodos()
+})
+
+const isLoading = computed(() => globalStore.loading)
+const getTodos = computed(() => todoStore.todos)
+
+const openModalForNewTodo = () => {
+  showTodoModal.value = true
 }
 
-// Task data example (this can come from a store or API in a real app)
-const todos: Array<Todo> = ref([
-  {
-    id: '1',
-    title: 'Running on the mountain',
-    description: '100 km running',
-    completed: false,
-    dateCreated: '2024-12-01T10:00:00',
-  },
-  {
-    id: '2',
-    title: 'Create Wireframe',
-    description: 'Crypto Wallet Redesign',
-    completed: true,
-    dateCreated: '2024-12-01T09:15:00',
-    dateCompleted: '2024-12-01T10:00:00',
-  },
-  {
-    id: '3',
-    title: 'Prepare Presentation',
-    description: 'Quarterly Performance Report',
-    completed: false,
-    dateCreated: '2024-12-01T15:00:00',
-  },
-  {
-    id: '4',
-    title: 'Team Meeting',
-    description: 'Project Progress Discussion',
-    completed: false,
-    dateCreated: '2024-12-01T13:00:00',
-  },
-  {
-    id: '5',
-    title: 'Design Landing Page',
-    description: 'Marketing Campaign Launch',
-    completed: false,
-    dateCreated: '2024-12-01T18:00:00',
-  },
-  {
-    id: '6',
-    title: 'Brainstorm Ideas',
-    description: 'New Product Strategy',
-    completed: false,
-    dateCreated: '2024-12-01T11:00:00',
-  },
-  {
-    id: '7',
-    title: 'Update Documentation',
-    description: 'Project Wiki Update',
-    completed: false,
-    dateCreated: '2024-12-01T14:30:00',
-  },
-  {
-    id: '8',
-    title: 'Code Review',
-    description: 'Review Pull Requests',
-    completed: true,
-    dateCreated: '2024-12-01T17:00:00',
-    dateCompleted: '2024-12-01T18:00:00',
-  },
-])
+const handleCloseModal = () => {
+  showTodoModal.value = false
+}
+
+const handleSaveTodo = () => {
+  showTodoModal.value = false
+}
+
+const handleFormCancel = () => {
+  showTodoModal.value = false
+}
+
+const showModalForUpdateTodo = (todoToEdit: Todo) => {
+  /** need to pass todoToEdit to the Form */
+  showTodoModal.value = true
+}
+
+// const handleUpdateTodo =  (todo: Todo) => {
+//   console.log()
+// }
+
+const handleFormSubmit = async (todo: Todo) => {
+  try {
+    globalStore.setLoading(true)
+    await todoStore.addTodo(todo)
+    showTodoModal.value = false
+  } catch (error) {
+    console.error('An Error Occured', error)
+  } finally {
+    globalStore.setLoading(false)
+  }
+}
 </script>
 
 <style scoped>

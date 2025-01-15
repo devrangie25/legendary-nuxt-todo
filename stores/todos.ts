@@ -1,51 +1,71 @@
 import { defineStore } from 'pinia'
-import { addDoc, collection } from 'firebase/firestore'
+import { ref, computed } from 'vue'
+import { addDoc, collection, getDocs, doc, deleteDoc, updateDoc } from 'firebase/firestore'
+import type { Todo } from '~/types/todo'
 
-interface Todo {
-  id?: string
-  title?: string
-  description?: string
-  completed?: boolean
-  dateCreated?: string
-  dateCompleted?: string
-}
+export const useTodoStore = defineStore('todo', () => {
+  const todos = ref<Todo[]>([])
+  const { $db } = useNuxtApp()
 
-export const useTodoStore = defineStore('todoStore', {
-  state: () => ({
-    todos: [] as Array<Todo>,
-  }),
-  actions: {
+  const getTodos = computed(() => todos.value)
+
+  const fetchTodos = async () => {
+    try {
+      const querySnapshot = await getDocs(collection($db, 'todos'))
+      console.log("querySnapshot", querySnapshot)
+      todos.value = querySnapshot.docs.map((doc: any) => ({ ...doc.data(), id: doc.id }))
+    } catch (error) {
+      console.error('Catch Error in Fetch Todos', error)
+    }
+  }
+
+  const addTodo = async (newTodo: Todo) => {
+    try {
+      const docRef = await addDoc(collection($db, 'todos'), newTodo)
+      todos.value = [...todos.value, { id: docRef.id, ...newTodo }]
+    } catch (error) {
+      console.error('Catch Error in Add Todo', error)
+    }
+  }
+
+  const updateTodo = async (id: string, updates: any) => {
     /**
-     * Fetching all todos
+     * This updates params is an object that will be updated in the object Todo
      */
+    try {
+      const docRef = doc($db, 'todos', id)
+      await updateDoc(docRef, updates)
 
-    /**
-     * Adding new todo
-     */
-    async addTodo(newTodo: Todo) {
-      console.log('Check newTodo in store', newTodo)
-      try {
-        const { $db } = useNuxtApp()
-        const response = await addDoc(collection($db, 'todos'), newTodo)
+      todos.value = todos.value.map((todo: any) => {
+        if (todo.id === id) {
+          return {
+            ...todo,
+            ...updates,
+          }
+        }
+        return todo
+      })
+    } catch (error) {
+      console.error('Catch Error in Updating Todo', error)
+    }
+  }
 
-        console.log("response", response)
-        // this.todos = [...this.todos, { id: response, newTodo }]
-        this.todos.push({ id: response.id, ...newTodo })
-        console.log("this.todos", this.todos)
-      } catch (error) {
-        console.error('Catch Error in Add Todo', error)
-      }
-    },
-    /**
-     * Updating new todo
-     */
+  const deleteTodo = async (id: string) => {
+    try {
+      const docRef = doc($db, 'todos', id)
+      await deleteDoc(docRef)
+      todos.value = todos.value.filter((todo: any) => todo.id !== id)
+    } catch (error) {
+      console.error('Catch Error in Delete Todo', error)
+    }
+  }
 
-    /**
-     * Completing a todo
-     */
-
-    /**
-     * Deleting a todo
-     */
-  },
+  return {
+    todos,
+    getTodos,
+    fetchTodos,
+    addTodo,
+    updateTodo,
+    deleteTodo,
+  }
 })
