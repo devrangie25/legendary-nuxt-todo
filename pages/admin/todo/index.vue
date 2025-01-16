@@ -13,7 +13,9 @@
 
     <!-- Date and Task Filters -->
     <div class="w-full bg-white p-4 flex items-center justify-between border-b">
-      <div class="text-gray-600">{{ new Date() }}</div>
+      <div class="text-gray-600">
+        {{ `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate()}` }}
+      </div>
       <div class="space-x-4">
         <span class="text-sm text-blue-600 cursor-pointer">All (35)</span>
         <span class="text-sm text-gray-600 cursor-pointer">Open (14)</span>
@@ -42,6 +44,7 @@ definePageMeta({
 const todoStore = useTodoStore()
 const globalStore = useGlobalStore()
 const showTodoModal: boolean = ref(false)
+const currentDate = new Date()
 
 onMounted(() => {
   todoStore.fetchTodos()
