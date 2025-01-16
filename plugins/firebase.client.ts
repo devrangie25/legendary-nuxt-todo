@@ -18,8 +18,8 @@ export default defineNuxtPlugin(() => {
 
   return {
     provide: {
-        firebaseApp: app,
-        db
+      firebaseApp: app,
+      db
     }
   }
 })
