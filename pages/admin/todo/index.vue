@@ -68,6 +68,7 @@ const handleFormCancel = () => {
 
 const showModalForUpdateTodo = (todoToEdit: Todo) => {
   /** need to pass todoToEdit to the Form */
+  console.log('Check Todo To Edit ==> ', todoToEdit)
   showTodoModal.value = true
 }
 

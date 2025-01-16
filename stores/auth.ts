@@ -2,14 +2,14 @@ import { defineStore } from 'pinia'
 import type { PublicUser } from '~/types/user'
 
 export const useAuthStore = defineStore('auth', () => {
-  const user = ref(null) // To store authenticated user details
-  const token = ref('') // To store JWT or authentication token
+  const user = ref(null)
+  const token = ref('')
   const isLoading = ref(false)
   const errorMessage = ref('')
 
   // Composable to call API
   const api = $fetch.create({
-    baseURL: '/api', // Ensure your API is correctly configured
+    baseURL: '/api',
   })
 
   // Login method
@@ -24,7 +24,8 @@ export const useAuthStore = defineStore('auth', () => {
       })
       user.value = response.user
       // token.value = response.token
-      localStorage.setItem('authToken', response.token) // Optional: persist token
+      // Optional: persist token
+      localStorage.setItem('authToken', response.token)
     } catch (error: any) {
       errorMessage.value = error?.data?.message || 'Login failed. Please try again.'
     } finally {
@@ -44,7 +45,8 @@ export const useAuthStore = defineStore('auth', () => {
       })
       user.value = response.user
       token.value = response.token
-      localStorage.setItem('authToken', response.token) // Optional: persist token
+      // Optional: persist token
+      localStorage.setItem('authToken', response.token)
     } catch (error: any) {
       errorMessage.value = error?.data?.message || 'Signup failed. Please try again.'
     } finally {
