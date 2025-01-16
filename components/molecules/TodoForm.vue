@@ -79,7 +79,7 @@
 <script lang="ts" setup>
 import type { Todo } from '~/types/todo'
 
-const props = defineProps<{
+defineProps<{
   loading?: boolean
 }>()
 

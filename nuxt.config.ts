@@ -19,20 +19,23 @@ export default defineNuxtConfig({
   components: [
     '~/components',
     {
-      path: '~/components/atoms', // Auto-import all Atom components
+      path: '~/components/atoms',
       prefix: 'a',
     },
     {
-      path: '~/components/molecules', // Auto-import all Molecule components
+      path: '~/components/molecules',
       prefix: 'm',
     },
     {
-      path: '~/components/organisms', // Auto-import all Organism components
+      path: '~/components/organisms',
       prefix: 'o',
     },
   ],
   modules: ['@pinia/nuxt'],
-  // alias: {
-  //   pinia: '/node_modules/@pinia/nuxt/node_modules/pinia/dist/pinia.mjs',
-  // },
+  /**
+   * Commented for now, since this has been causing an error for building the app
+   * alias: {
+      pinia: '/node_modules/@pinia/nuxt/node_modules/pinia/dist/pinia.mjs',
+    },
+   */
 })

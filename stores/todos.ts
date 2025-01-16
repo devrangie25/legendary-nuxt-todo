@@ -12,7 +12,7 @@ export const useTodoStore = defineStore('todo', () => {
   const fetchTodos = async () => {
     try {
       const querySnapshot = await getDocs(collection($db, 'todos'))
-      console.log("querySnapshot", querySnapshot)
+      console.log('querySnapshot', querySnapshot)
       todos.value = querySnapshot.docs.map((doc: any) => ({ ...doc.data(), id: doc.id }))
     } catch (error) {
       console.error('Catch Error in Fetch Todos', error)

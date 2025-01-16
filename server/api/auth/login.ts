@@ -3,7 +3,7 @@ import { defineEventHandler, readBody } from 'h3'
 export default defineEventHandler(async (event) => {
   const body = await readBody(event)
 
-  console.log("Login API: params -> ", body)
+  console.log('Login API: params -> ', body)
 
   // Example: simple validation for email and password
   const { email, password } = body
