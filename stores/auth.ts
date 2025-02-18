@@ -8,17 +8,18 @@ export const useAuthStore = defineStore('auth', () => {
   const errorMessage = ref('')
 
   // Composable to call API
-  const api = $fetch.create({
+  const apiHandler = $fetch.create({
     baseURL: '/api',
   })
 
   // Login method
   const login = async (_user: PublicUser) => {
+    console.log('check login ==> ', _user)
     const { email, password } = _user
     isLoading.value = true
     errorMessage.value = ''
     try {
-      const response: any = await api('/auth/login', {
+      const response: any = await apiHandler('/auth/login', {
         method: 'POST',
         body: { email, password },
       })
@@ -39,7 +40,7 @@ export const useAuthStore = defineStore('auth', () => {
     isLoading.value = true
     errorMessage.value = ''
     try {
-      const response: any = await api('/auth/signup', {
+      const response: any = await apiHandler('/auth/signup', {
         method: 'POST',
         body: { email, password },
       })

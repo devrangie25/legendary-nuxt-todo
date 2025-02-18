@@ -1,6 +1,6 @@
 <template>
-  <div class="w-11/12 max-w-3xl bg-white p-4 mt-4 space-y-4 rounded">
-    <m-todo-card
+  <div class="w-11/12 max-w-3xl p-4 mt-4 space-y-4 rounded">
+    <m-todo-card-v2
       v-for="todo in todosRef"
       :key="todo.id"
       :todo="todo"

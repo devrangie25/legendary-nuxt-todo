@@ -38,7 +38,6 @@ export default [
     rules: {
       semi: ['error', 'never'],
       quotes: ['error', 'single'],
-      indent: ['error', 2],
       'vue/multi-word-component-names': 'off',
       '@typescript-eslint/no-explicit-any': ['warn', { ignoreRestArgs: true }], // This allows some flexibility
       'no-inline-comments': 'error', // Disallow comments on the same line as code
