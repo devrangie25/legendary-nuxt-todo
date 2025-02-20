@@ -1,16 +1,29 @@
 <template>
 	<div class="flex flex-col items-center">
-		<!-- Header -->
-		<div class="w-full bg-white md:p-4 p-6 shadow-md flex items-center justify-between sticky top-0">
-			<div>
-				<span class="text-gray-600 text-2xl font-bold">Today's Task</span>
-				<p class="text-gray-600">{{ dayjs().format('dddd, DD MMM') }}</p>
+		<div class="w-full bg-white sticky top-0">
+			<div class="p-4 shadow-md flex items-center justify-between">
+				<div>
+					<span class="text-gray-600 text-2xl font-bold">Today's Task</span>
+					<p class="text-gray-600">{{ dayjs().format('dddd, DD MMM') }}</p>
+				</div>
+				<button
+					class="bg-[#e0ecfa] text-blue-600 h-12 w-32 rounded-md hover:bg-blue-600 hover:text-[#e0ecfa] transition"
+					@click="openModalForNewTodo"
+				>
+					+ New Task
+				</button>
 			</div>
-			<button class="bg-[#e0ecfa] text-blue-600 h-12 w-32 rounded-md hover:bg-blue-600 hover:text-[#e0ecfa] transition" @click="openModalForNewTodo">
-				+ New Task
-			</button>
-		</div>
 
+			<!-- Date and Task Filters -->
+			<div class="bg-white p-4 flex items-center justify-center border-b">
+				<div class="space-x-4">
+					<span class="text-sm text-blue-600 cursor-pointer">All (35)</span>
+					<span class="text-sm text-gray-600 cursor-pointer">Open (14)</span>
+					<span class="text-sm text-gray-600 cursor-pointer">Closed (19)</span>
+					<span class="text-sm text-gray-600 cursor-pointer">Archived (2)</span>
+				</div>
+			</div>
+		</div>
 		<o-todo-list :todos="getTodos" @on-update="showModalForUpdateTodo" />
 
 		<m-modal :isOpen="showTodoModal" @close="handleCloseModal" @save-todo="handleSaveTodo">

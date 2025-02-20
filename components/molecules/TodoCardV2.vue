@@ -2,8 +2,8 @@
 	<div class="bg-white rounded-2xl p-6 flex flex-col w-full">
 		<div class="flex items-center justify-between mb-2">
 			<div>
-				<span :class="`flex text-xl font-normal text-gray-600 ${isChecked ? 'line-through' : ''}`">Client Review & Feedback</span>
-				<span class="text-gray-400 font-light text-md">Crypto Wallet Redesign</span>
+				<span :class="`flex text-xl font-normal text-gray-600 ${isChecked ? 'line-through' : ''}`">{{ props.todo.title }}</span>
+				<span class="text-gray-400 font-light text-md">{{ props.todo.description }}</span>
 			</div>
 			<div
 				:class="`w-7 h-7 flex items-center justify-center ${isChecked ? 'bg-blue-500' : 'border-2'} rounded-full cursor-pointer`"
@@ -20,7 +20,7 @@
 				<span class="font-medium mr-2">Today</span>
 				<span>10:00 PM - 11:45 PM</span>
 			</div>
-			<div class="flex -space-x-3">
+			<div v-if="false" class="flex -space-x-3">
 				<img class="w-8 h-8 rounded-full border-2 border-white shadow" src="https://randomuser.me/api/portraits/men/32.jpg" alt="User 1" />
 				<img class="w-8 h-8 rounded-full border-2 border-white shadow" src="https://randomuser.me/api/portraits/men/32.jpg" alt="User 2" />
 				<img class="w-8 h-8 rounded-full border-2 border-white shadow" src="https://randomuser.me/api/portraits/women/44.jpg" alt="User 3" />
@@ -32,8 +32,25 @@
 	</div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { h } from 'vue'
+import type { Todo } from '~/types/todo'
+
+const props = defineProps<{
+	todo: Todo
+}>()
+
+console.log('Check TodoCardv2.vue', props.todo)
+
+// const emit = defineEmits(['delete-todo', 'edit-todo'])
+
+// const onDeleteTodo = (id) => {
+// 	emit('delete-todo', id)
+// }
+
+// const onEditTodo = (todoToEdit: Todo) => {
+// 	emit('edit-todo', todoToEdit)
+// }
 
 const isChecked = ref(false)
 

@@ -32,6 +32,7 @@ export default defineNuxtConfig({
 		},
 	],
 	modules: ['@pinia/nuxt', 'dayjs-nuxt'],
+	plugins: ['~/plugins/vue-datepicker'],
 	runtimeConfig: {
 		// THESE VARIABLES ARE MEANT TO BE USED IN THE SERVER ONLY
 		APP_API_URL: process.env.APP_API_URL,
