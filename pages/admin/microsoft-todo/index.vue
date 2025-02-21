@@ -7,7 +7,7 @@
 		</div>
 
 		<!-- Tasks Container -->
-		<div class="flex-1 overflow-y-auto p-4 space-y-2">
+		<div class="flex-1 overflow-y-auto p-4 space-y-2 md:max-h-[75vh] max-h-[60vh]">
 			<div v-for="(task, index) in tasks" :key="index" class="bg-gray-800 p-4 rounded-lg flex justify-between items-center">
 				<div class="flex space-x-2">
 					<div
@@ -48,27 +48,27 @@ definePageMeta({
 const isChecked = ref(true)
 
 const tasks = [
-	// 'Swimming with Friends',
-	// 'Go on a date',
-	// 'Take a Bath',
-	// 'Go see a doctor',
-	// 'Read a book',
-	// 'Work on a project',
-	// 'Go for a run',
-	// 'Watch a movie',
-	// 'Call mom',
-	// 'Buy groceries',
-	// 'Clean the house',
-	// 'Cook dinner',
-	// 'Meditate',
-	// 'Write a journal',
-	// 'Learn a new skill',
-	// 'Do laundry',
-	// 'Organize desk',
-	// 'Plan next week',
-	// 'Listen to music',
-	// 'Go hiking',
-	// 'Visit a museum',
+	'Swimming with Friends',
+	'Go on a date',
+	'Take a Bath',
+	'Go see a doctor',
+	'Read a book',
+	'Work on a project',
+	'Go for a run',
+	'Watch a movie',
+	'Call mom',
+	'Buy groceries',
+	'Clean the house',
+	'Cook dinner',
+	'Meditate',
+	'Write a journal',
+	'Learn a new skill',
+	'Do laundry',
+	'Organize desk',
+	'Plan next week',
+	'Listen to music',
+	'Go hiking',
+	'Visit a museum',
 	'Try a new recipe',
 	'Meet a friend for coffee',
 	'Fix the bike',
