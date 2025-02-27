@@ -40,18 +40,6 @@ const props = defineProps<{
 	todo: Todo
 }>()
 
-console.log('Check TodoCardv2.vue', props.todo)
-
-// const emit = defineEmits(['delete-todo', 'edit-todo'])
-
-// const onDeleteTodo = (id) => {
-// 	emit('delete-todo', id)
-// }
-
-// const onEditTodo = (todoToEdit: Todo) => {
-// 	emit('edit-todo', todoToEdit)
-// }
-
 const isChecked = ref(false)
 
 // Checkmark Icon

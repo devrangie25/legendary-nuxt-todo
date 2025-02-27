@@ -58,31 +58,6 @@ const createNewTask = async () => {
 	}
 }
 
-// const showTaskDetails = (currentTask: Task) => {
-// 	if (getCurrentTask.value !== undefined) {
-// 		/** Second scenario if the currentTask from store is not empty */
-// 		const { id } = getCurrentTask.value
-// 		if (id !== currentTask.id) {
-// 			/** Third Scenario if the selected current task is not equal to the task that is in the store */
-// 			taskStore.setCurrentTask(currentTask)
-// 			globalStore.setShowRightSideBar(true)
-// 		} else {
-// 			/** Fourth Scenario if the selected current task is equal to the task that is in the store */
-// 			if (isShowRightSideBar.value) {
-// 				/** Check if the sidebar is currently open; then make it hide */
-// 				globalStore.setShowRightSideBar(false)
-// 			} else {
-// 				/** Check if the sidebar is currently hidden; then make it open */
-// 				globalStore.setShowRightSideBar(true)
-// 			}
-// 		}
-// 	} else {
-// 		/** First scenario if the currentTask from store is empty */
-// 		taskStore.setCurrentTask(currentTask)
-// 		globalStore.setShowRightSideBar(true)
-// 	}
-// }
-
 const showTaskDetails = (currentTask: Task) => {
 	const storedTask = getCurrentTask.value
 	const isSidebarOpen = isShowRightSideBar.value

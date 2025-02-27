@@ -1,15 +1,17 @@
 <template>
-	<div class="bg-gray-800 p-4 rounded-lg flex justify-between items-center" @click="showTaskDetails">
-		<div class="flex space-x-2">
-			<div
-				:class="`w-5 h-5 mt-1 flex items-center justify-center ${isChecked ? 'bg-blue-500' : 'border-2'} rounded-full cursor-pointer`"
-				@click="isChecked = !isChecked"
-			>
-				<a-icon v-if="isChecked" name="Check" :size="15" />
-			</div>
+	<div class="bg-gray-800 p-4 rounded-lg flex justify-between items-center">
+		<div class="flex space-x-4 mr-4 w-full">
 			<div>
-				<div class="text-lg">{{ task.title }}</div>
-				<div class="flex space-x-1 items-center">
+				<div
+					:class="`w-5 h-5 mt-[5px] flex items-center justify-center ${isChecked ? 'bg-blue-500' : 'border-2'} rounded-full cursor-pointer`"
+					@click="isChecked = !isChecked"
+				>
+					<a-icon v-if="isChecked" name="Check" :size="15" />
+				</div>
+			</div>
+			<div class="w-full" @click="showTaskDetails">
+				<div class="text-md">{{ task.title }}</div>
+				<div class="flex space-x-1 items-center mt-[3px]">
 					<!-- Type of Todo -->
 					<div class="flex">
 						<span class="text-sm font-light">
@@ -45,7 +47,9 @@
 				</div>
 			</div>
 		</div>
-		<a-icon name="Star" class="cursor-pointer" />
+		<div>
+			<a-icon name="Star" class="cursor-pointer" />
+		</div>
 	</div>
 </template>
 

@@ -1,29 +1,22 @@
 <template>
-	<div class="flex min-h-screen bg-gray-100">
+	<div class="flex min-h-screen bg-gray-100 w-full">
 		<o-frame-left-side-bar />
-		<div class="flex w-full">
+		<div class="flex md:w-[85vw] w-full">
 			<slot />
+			<!-- Task Details Display-->
+			<o-frame-right-side-bar v-if="isShowRightSideBar">
+				<m-tasks-details />
+			</o-frame-right-side-bar>
 		</div>
-		<o-frame-right-side-bar v-if="isShowRightSideBar">
-			<div class="p-4">
-				<div class="text-lg">
-					{{ getCurrentTask.title }}
-				</div>
-			</div>
-		</o-frame-right-side-bar>
 	</div>
 </template>
 
 <script setup lang="ts">
 import { useGlobalStore } from '~/stores/global'
-import { useTaskStore } from '~/stores/tasks'
 
 const globalStore = useGlobalStore()
-const taskStore = useTaskStore()
 
 const isShowRightSideBar = computed(() => globalStore.showRightSideBar)
-const getCurrentTask = computed(() => taskStore.currentTask)
-
 </script>
 
 <style scoped></style>
