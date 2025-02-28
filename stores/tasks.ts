@@ -3,6 +3,11 @@ import { ref, computed } from 'vue'
 import { addDoc, collection, getDocs, doc, deleteDoc, updateDoc } from 'firebase/firestore'
 import type { Task } from '~/types/task'
 
+/**
+ * Keyword: V2 = PHP Laravel API
+ * Non-V2 = Firebase API
+ */
+
 export const useTaskStore = defineStore('task', () => {
 	const tasks = ref<Task[]>([])
 	const currentTask = ref<Task>()
@@ -14,7 +19,6 @@ export const useTaskStore = defineStore('task', () => {
 	const fetchTasks = async () => {
 		try {
 			const querySnapshot = await getDocs(collection($db, 'tasks'))
-			console.log('querySnapshot', querySnapshot)
 			tasks.value = querySnapshot.docs.map((doc: any) => ({ ...doc.data(), id: doc.id }))
 		} catch (error) {
 			console.error('Catch Error in Fetch Tasks', error)
@@ -66,11 +70,16 @@ export const useTaskStore = defineStore('task', () => {
 		currentTask.value = task
 	}
 
+	const createTaskV2 = (newTask: Task) => {
+		console.log('createTaskV2', newTask)
+	}
+
 	return {
 		tasks,
 		currentTask,
 		getCurrentTask,
 		getTasks,
+		createTaskV2,
 		setCurrentTask,
 		fetchTasks,
 		createTask,

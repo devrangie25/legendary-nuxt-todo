@@ -27,7 +27,7 @@
 		<o-todo-list :todos="getTodos" @on-update="showModalForUpdateTodo" />
 
 		<m-modal :isOpen="showTodoModal" @close="handleCloseModal" @save-todo="handleSaveTodo">
-			<m-todo-form :loading="isLoading" @form-submit="handleFormSubmit" @form-cancel="handleFormCancel" />
+			<m-todos-todo-form :loading="isLoading" @form-submit="handleFormSubmit" @form-cancel="handleFormCancel" />
 		</m-modal>
 	</div>
 </template>

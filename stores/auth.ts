@@ -14,7 +14,6 @@ export const useAuthStore = defineStore('auth', () => {
 
   // Login method
   const login = async (_user: PublicUser) => {
-    console.log('check login ==> ', _user)
     const { email, password } = _user
     isLoading.value = true
     errorMessage.value = ''

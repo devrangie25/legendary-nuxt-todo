@@ -1,16 +1,16 @@
 <template>
-  <div class="w-full max-w-md p-8 bg-gray-800 rounded-lg shadow-lg">
+  <div class="w-full max-w-md rounded-lg bg-gray-800 p-8 shadow-lg">
     <!-- Logo -->
-    <div class="flex justify-center mb-6">
-      <div class="w-16 h-16 bg-gray-700 rounded-full flex items-center justify-center">
+    <div class="mb-6 flex justify-center">
+      <div class="flex h-16 w-16 items-center justify-center rounded-full bg-gray-700">
         <!-- Placeholder for logo -->
         <span class="text-2xl font-bold text-white">Logo</span>
       </div>
     </div>
 
     <!-- Title -->
-    <h2 class="text-2xl font-bold text-center text-white mb-2">Welcome Back</h2>
-    <p class="text-sm text-center text-gray-400 mb-6">
+    <h2 class="mb-2 text-center text-2xl font-bold text-white">Welcome Back</h2>
+    <p class="mb-6 text-center text-sm text-gray-400">
       Don’t have an account yet?
       <NuxtLink to="/auth/signup" class="text-blue-500 hover:underline">Sign up</NuxtLink>
     </p>
@@ -18,35 +18,35 @@
     <!-- Form -->
     <form @submit.prevent="submitForm">
       <div class="mb-4">
-        <Label for="email" text="Email Address" />
+        <a-label for="email" text="Email Address" />
         <input
           v-model="user.email"
           type="email"
           id="email"
           placeholder="Email address"
-          class="w-full px-4 py-2 bg-gray-700 text-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-500"
+          class="w-full rounded bg-gray-700 px-4 py-2 text-gray-300 focus:outline-none focus:ring focus:ring-blue-500"
         />
       </div>
       <div class="mb-6">
-        <Label for="password" text="Password" />
+        <a-label for="password" text="Password" />
         <input
           v-model="user.password"
           type="password"
           id="password"
           placeholder="Password"
-          class="w-full px-4 py-2 bg-gray-700 text-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-500"
+          class="w-full rounded bg-gray-700 px-4 py-2 text-gray-300 focus:outline-none focus:ring focus:ring-blue-500"
         />
       </div>
       <button
         type="submit"
-        class="w-full px-4 py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600 transition"
+        class="w-full rounded bg-blue-500 px-4 py-2 font-semibold text-white transition hover:bg-blue-600"
       >
         Login
       </button>
     </form>
 
     <!-- Divider -->
-    <div class="flex items-center my-6">
+    <div class="my-6 flex items-center">
       <hr class="flex-grow border-gray-600" />
       <span class="px-4 text-sm text-gray-400">OR</span>
       <hr class="flex-grow border-gray-600" />
@@ -55,17 +55,17 @@
     <!-- Social Login Buttons -->
     <div class="flex justify-center space-x-4">
       <button
-        class="flex items-center justify-center w-12 h-12 bg-gray-700 text-gray-300 rounded hover:bg-gray-600 transition"
+        class="flex h-12 w-12 items-center justify-center rounded bg-gray-700 text-gray-300 transition hover:bg-gray-600"
       >
         <i class="fab fa-apple"></i>
       </button>
       <button
-        class="flex items-center justify-center w-12 h-12 bg-gray-700 text-gray-300 rounded hover:bg-gray-600 transition"
+        class="flex h-12 w-12 items-center justify-center rounded bg-gray-700 text-gray-300 transition hover:bg-gray-600"
       >
         <i class="fab fa-google"></i>
       </button>
       <button
-        class="flex items-center justify-center w-12 h-12 bg-gray-700 text-gray-300 rounded hover:bg-gray-600 transition"
+        class="flex h-12 w-12 items-center justify-center rounded bg-gray-700 text-gray-300 transition hover:bg-gray-600"
       >
         <i class="fab fa-facebook"></i>
       </button>
@@ -88,8 +88,6 @@ const user = ref({
 })
 
 const submitForm = () => {
-  console.log('Login Page: Check User -> ', user.value)
-
   authStore.login(user.value)
 }
 </script>
