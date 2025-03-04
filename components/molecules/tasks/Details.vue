@@ -1,5 +1,8 @@
 <template>
 	<div class="p-2">
+		<pre>
+			{{ getCurrentTask }}
+		</pre>
 		<div class="bg-gray-400 hover:bg-gray-800 hover:text-white p-4 rounded justify-between flex items-center cursor-pointer mb-2">
 			<div class="flex space-x-3">
 				<div class="mt-[3px]">
@@ -23,7 +26,7 @@
 			<div class="flex items-center space-x-3">
 				<a-icon name="Sun" :size="20" class="cursor-pointer" />
 				<div>
-					<div class="text-md">{{ 'Add to My Day' }}</div>
+					<div class="text-md">{{ getCurrentTask.addToCurrentDate ? 'Added to my Day' : 'Add to My Day' }}</div>
 				</div>
 			</div>
 		</div>
