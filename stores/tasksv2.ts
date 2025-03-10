@@ -59,10 +59,47 @@ export const useTaskv2Store = defineStore('taskv2', () => {
       } else {
         console.log('check response =>', response)
       }
-    } catch (error) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
       globalStore.setError({
         title: 'task',
         action: 'fetchTasks',
+        status: error.status,
+        message: error.message || 'An Error Occured',
+        success: false,
+      })
+    }
+  }
+
+  const addTaskToCurrentDay = async (taskId: string | number, add_to_current_date: boolean) => {
+    try {
+      const response = await $fetch<Task>('/api/tasks/add-task-to-current-day', {
+        method: 'POST',
+        body: { task_id: taskId, add_to_current_date },
+      })
+
+      if (response.status === 'error') {
+        globalStore.setError({
+          title: 'task',
+          action: 'addTaskToCurrentDay',
+          status: response.status,
+          message: response.message || 'An Error Occured',
+          success: false,
+        })
+      } else {
+        console.log('check response =>', response)
+        const updatedTask = response.data
+        const taskIndex = tasks.value.findIndex(task => task.id === updatedTask.id)
+        if (taskIndex !== -1) {
+          tasks.value[taskIndex] = updatedTask
+        }
+        currentTask.value = updatedTask
+      }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      globalStore.setError({
+        title: 'task',
+        action: 'addTaskToCurrentDay',
         status: error.status,
         message: error.message || 'An Error Occured',
         success: false,
@@ -79,6 +116,7 @@ export const useTaskv2Store = defineStore('taskv2', () => {
     currentTask,
     getCurrentTask,
     getTasks,
+    addTaskToCurrentDay,
     createTask,
     setCurrentTask,
     fetchTasks,

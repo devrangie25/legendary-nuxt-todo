@@ -31,6 +31,7 @@ import type { Task } from '~/types/task'
 import { useTaskv2Store } from '~/stores/tasksv2'
 import { useGlobalStore } from '~/stores/global'
 // import { useDayjs } from '#dayjs'
+const route = useRoute()
 
 definePageMeta({
   layout: 'microsoft',
@@ -51,8 +52,10 @@ const newTask: Ref<Task> = ref({
 const getTasks = computed(() => taskStore.tasks)
 const getCurrentTask = computed(() => taskStore.currentTask)
 const isShowRightSideBar = computed(() => globalStore.showRightSideBar)
+const getTaskFilter = computed(() => route.params.taskFilter)
 
 onMounted(() => {
+  console.log('getTaskFilter', getTaskFilter.value)
   taskStore.fetchTasks()
 })
 

@@ -9,7 +9,7 @@
             :class="`flex h-5 w-5 items-center justify-center ${isChecked ? 'bg-white' : 'border-2'} cursor-pointer rounded-full`"
             @click="isChecked = !isChecked"
           >
-            <a-icon v-if="isChecked" name="Check" :size="15" />
+            <a-icon v-if="isChecked" name="Check" :size="15" class="text-gray-800" />
           </div>
         </div>
         <div>
@@ -23,11 +23,12 @@
 
     <div
       class="mb-2 flex cursor-pointer items-center justify-between rounded bg-gray-400 p-4 hover:bg-gray-800 hover:text-white"
+      @click="addTaskToCurrentDay(getCurrentTask.id)"
     >
       <div class="flex items-center space-x-3">
         <a-icon name="Sun" :size="20" class="cursor-pointer" />
         <div>
-          <div class="text-md">{{ getCurrentTask.add_to_current_date ? 'Added to my Day' : 'Add to My Day' }}</div>
+          <div class="text-md">{{ getCurrentTask.add_to_current_date ? 'Added to My Day' : 'Add to My Day' }}</div>
         </div>
       </div>
     </div>
@@ -60,7 +61,8 @@
 
     <pre class="text-xs">
 			{{ getCurrentTask }}
-		</pre>
+		</pre
+    >
   </div>
 </template>
 
@@ -79,5 +81,10 @@ const adjustHeight = () => {
     textareaRef.value.style.height = 'auto'
     textareaRef.value.style.height = `${textareaRef.value.scrollHeight}px`
   }
+}
+
+const addTaskToCurrentDay = (id: string) => {
+  const add_to_current_date = getCurrentTask.value.add_to_current_date ? false : true
+  taskStore.addTaskToCurrentDay(id, add_to_current_date)
 }
 </script>
