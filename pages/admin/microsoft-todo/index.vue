@@ -5,7 +5,8 @@
       <p class="text-gray-400">Thursday, February 20</p>
     </div>
 
-    <div class="max-h-[60vh] flex-1 space-y-2 overflow-y-auto p-4 md:max-h-[75vh]">
+    <!-- Tasks Container -->
+    <div class="custom-scrollbar max-h-[60vh] flex-1 space-y-2 overflow-y-auto p-4 md:max-h-[75vh]">
       <m-tasks-task v-for="(task, index) in getTasks" :key="index" :task="task" @show-task-details="showTaskDetails" />
     </div>
 
@@ -27,26 +28,24 @@
 <script setup lang="ts">
 import { Ref } from 'vue'
 import type { Task } from '~/types/task'
-import { useTaskStore } from '~/stores/tasks'
+import { useTaskv2Store } from '~/stores/tasksv2'
 import { useGlobalStore } from '~/stores/global'
-import { useDayjs } from '#dayjs'
+// import { useDayjs } from '#dayjs'
 
 definePageMeta({
   layout: 'microsoft',
 })
 
-const taskStore = useTaskStore()
+const taskStore = useTaskv2Store()
 const globalStore = useGlobalStore()
-const dayjs = useDayjs()
+// const dayjs = useDayjs()
 
 const newTask: Ref<Task> = ref({
   title: '',
-  currentDate: '',
-  dateCreated: '',
-  dueDate: '',
-  addToCurrentDate: true,
+  add_to_current_date: true,
   important: true,
-  type: 'Tasks',
+  completed: false,
+  type: 'Task',
 })
 
 const getTasks = computed(() => taskStore.tasks)
@@ -54,23 +53,25 @@ const getCurrentTask = computed(() => taskStore.currentTask)
 const isShowRightSideBar = computed(() => globalStore.showRightSideBar)
 
 onMounted(() => {
-  taskStore.fetchImportantTasks()
+  taskStore.fetchTasks()
 })
 
 const createNewTask = async () => {
   try {
     if (newTask.value.title === '') return
     /** Get current UTC timestamp */
-    const now = dayjs.utc().toISOString()
-    newTask.value.dateCreated = now
-    newTask.value.currentDate = newTask.value.currentDate ? dayjs.utc(newTask.value.currentDate).toISOString() : now
-    newTask.value.dueDate = newTask.value.dueDate ? dayjs.utc(newTask.value.dueDate).toISOString() : null
     console.log('Task to be saved:', newTask.value)
     await taskStore.createTask(newTask.value)
   } catch (error) {
     console.error('An Error Occured', error)
   } finally {
-    newTask.value = { title: '' }
+    newTask.value = {
+      title: '',
+      add_to_current_date: true,
+      important: true,
+      completed: false,
+      type: 'Task',
+    }
   }
 }
 
@@ -88,3 +89,5 @@ const showTaskDetails = (currentTask: Task) => {
   }
 }
 </script>
+
+<style scoped></style>

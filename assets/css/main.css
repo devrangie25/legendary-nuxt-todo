@@ -2,3 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Scrollbar container */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px; /* Set scrollbar width */
+}
+
+/* Scrollbar track */
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent; /* Transparent track */
+}
+
+/* Scrollbar thumb (the draggable part) */
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3); /* Light transparent scrollbar */
+  border-radius: 4px; /* Rounded edges */
+}
+
+/* Scrollbar thumb on hover */
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.6); /* More visible on hover */
+}

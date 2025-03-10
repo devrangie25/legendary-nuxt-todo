@@ -80,16 +80,11 @@ export const useTaskStore = defineStore('task', () => {
     currentTask.value = task
   }
 
-  const createTaskV2 = (newTask: Task) => {
-    console.log('createTaskV2', newTask)
-  }
-
   return {
     tasks,
     currentTask,
     getCurrentTask,
     getTasks,
-    createTaskV2,
     setCurrentTask,
     fetchImportantTasks,
     fetchTasks,

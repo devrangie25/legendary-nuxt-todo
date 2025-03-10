@@ -1,17 +1,17 @@
 interface Task {
   id?: string
-  title?: string
+  title: string
   type?: string
   note?: string
   important?: boolean
-  addToCurrentDate?: boolean
-  currentDate?: string
+  add_to_current_date?: boolean
+  current_date?: string
   remind?: string
   repeat?: string
-  dueDate?: string
+  due_date?: string
   completed?: boolean
-  dateCreated?: string
-  dateCompleted?: string
+  date_created?: string
+  date_completed?: string
 }
 
 export type { Task }
