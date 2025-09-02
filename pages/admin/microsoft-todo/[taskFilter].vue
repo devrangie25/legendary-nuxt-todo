@@ -7,7 +7,7 @@
 
     <!-- Tasks Container -->
     <div class="custom-scrollbar max-h-[60vh] flex-1 space-y-2 overflow-y-auto p-4 md:max-h-[75vh]">
-      <m-tasks-task v-for="(task, index) in getTasks" :key="index" :task="task" @show-task-details="showTaskDetails" />
+      <m-tasks-task v-for="(task, index) in tasks" :key="index" :task="task" @show-task-details="showTaskDetails" />
     </div>
 
     <div class="absolute bottom-4 left-1/2 w-[80%] -translate-x-1/2 transform rounded-lg bg-gray-800 p-4 md:w-[60%]">
@@ -49,13 +49,29 @@ const newTask: Ref<Task> = ref({
   type: 'Task',
 })
 
-const getTasks = computed(() => taskStore.tasks)
+// const getTasks = computed(() => taskStore.tasks)
 const getCurrentTask = computed(() => taskStore.currentTask)
 const isShowRightSideBar = computed(() => globalStore.showRightSideBar)
-const getTaskFilter = computed(() => route.params.taskFilter)
+const getRouteParams = computed(() => route.params.taskFilter)
+const tasks = computed(() => {
+  return taskStore.tasks.filter((task) => {
+    if (getRouteParams.value === 'important') {
+      return task.important
+    } else if (getRouteParams.value === 'my-day') {
+      return task.add_to_current_date
+    } else if (getRouteParams.value === 'completed') {
+      return task.completed
+    } else if (getRouteParams.value === 'planned') {
+      return task.due_date
+    } else if (getRouteParams.value === 'tasks') {
+      return task.type === 'Task'
+    } else {
+      return task
+    }
+  })
+})
 
 onMounted(() => {
-  console.log('getTaskFilter', getTaskFilter.value)
   taskStore.fetchTasks()
 })
 

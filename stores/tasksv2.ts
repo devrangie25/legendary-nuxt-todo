@@ -9,9 +9,11 @@ export const useTaskv2Store = defineStore('taskv2', () => {
 
   const tasks = ref<Task[]>([])
   const currentTask = ref<Task>()
+  const taskFilter = ref('my-day')
 
   const getTasks = computed(() => tasks.value)
   const getCurrentTask = computed(() => currentTask.value)
+  const getTaskFilter = computed(() => taskFilter.value)
 
   const fetchTasks = async () => {
     try {
@@ -58,6 +60,7 @@ export const useTaskv2Store = defineStore('taskv2', () => {
         })
       } else {
         console.log('check response =>', response)
+        tasks.value.push(response.data)
       }
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
@@ -111,11 +114,18 @@ export const useTaskv2Store = defineStore('taskv2', () => {
     currentTask.value = task
   }
 
+  const setTaskFilter = (filterBy: string) => {
+    console.log('check filterBy =>', filterBy)
+    taskFilter.value = filterBy
+  }
+
   return {
     tasks,
     currentTask,
     getCurrentTask,
     getTasks,
+    getTaskFilter,
+    setTaskFilter,
     addTaskToCurrentDay,
     createTask,
     setCurrentTask,

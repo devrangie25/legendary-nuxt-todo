@@ -1,14 +1,14 @@
 <template>
-	<div class="flex min-h-screen bg-gray-100 w-full">
-		<o-frame-left-side-bar />
-		<div class="flex md:w-[85vw] w-full">
-			<slot />
-			<!-- Task Details Display-->
-			<o-frame-right-side-bar v-if="isShowRightSideBar">
-				<m-tasks-details />
-			</o-frame-right-side-bar>
-		</div>
-	</div>
+  <div class="flex min-h-screen w-full bg-gray-100">
+    <o-frame-left-side-bar />
+    <div class="flex w-full md:w-[85vw]">
+      <slot />
+      <!-- Task Details Display-->
+      <o-frame-right-side-bar v-if="isShowRightSideBar">
+        <m-tasks-details />
+      </o-frame-right-side-bar>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">

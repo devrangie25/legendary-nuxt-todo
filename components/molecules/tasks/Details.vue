@@ -17,7 +17,7 @@
         </div>
       </div>
       <div>
-        <a-icon name="Star" :size="20" class="cursor-pointer" />
+        <a-icon name="Star" :size="20" :class="`cursor-pointer ${getCurrentTask.important ? 'fill-gray-800' : ''}`" />
       </div>
     </div>
 
